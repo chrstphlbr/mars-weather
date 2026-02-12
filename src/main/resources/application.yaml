@@ -1,6 +1,11 @@
+server:
+  port: 8080
+  shutdown: graceful
 spring:
   application:
     name: marsweather
   threads:
     virtual:
       enabled: true
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
