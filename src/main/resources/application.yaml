@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: marsweather
+  threads:
+    virtual:
+      enabled: true
