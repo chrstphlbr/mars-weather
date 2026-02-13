@@ -1,6 +1,7 @@
 package net.laaber.marsweather.nasa;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public record SolInfo(
         int id,
@@ -10,10 +11,10 @@ public record SolInfo(
         String season,
         int minTemp,
         int maxTemp,
-        int pressure,
+        Optional<Integer> pressure,
         String pressureString,
-        String absHumidity,
-        String windSpeed,
+        Optional<Integer> absHumidity,
+        int windSpeed,
         String windDirection,
         String atmoOpacity,
         String sunrise, // not LocalTime because Mars days have 24h40m

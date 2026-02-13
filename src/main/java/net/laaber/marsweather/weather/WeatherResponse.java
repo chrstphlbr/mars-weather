@@ -1,3 +1,5 @@
 package net.laaber.marsweather.weather;
 
-public record WeatherResponse() {}
+import java.time.LocalDate;
+
+public record WeatherResponse(LocalDate earthDate, int sol, WeatherInfo weather) {}
