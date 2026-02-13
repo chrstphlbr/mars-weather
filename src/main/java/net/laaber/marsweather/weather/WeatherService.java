@@ -1,10 +1,9 @@
 package net.laaber.marsweather.weather;
 
+import java.time.LocalDate;
 import net.laaber.marsweather.nasa.NasaClient;
 import net.laaber.marsweather.sol.Sol;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 public class WeatherService {
@@ -22,5 +21,4 @@ public class WeatherService {
 
         throw new RuntimeException("Not implemented");
     }
-
 }

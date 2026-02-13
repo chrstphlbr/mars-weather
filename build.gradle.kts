@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "4.0.2"
 	id("io.spring.dependency-management") version "1.1.7"
+	id("com.diffplug.spotless") version "8.2.1"
 }
 
 group = "net.laaber"
@@ -11,6 +12,18 @@ description = "Mars Weather API"
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(25)
+	}
+}
+
+spotless {
+	java {
+		palantirJavaFormat("2.87.0")
+
+		// Optional formatting steps
+		formatAnnotations()
+		removeUnusedImports()
+		trimTrailingWhitespace()
+		endWithNewline()
 	}
 }
 

@@ -20,6 +20,4 @@ public record SolInfo(
         String sunset, // not LocalTime because Mars days have 24h40m
         String localUvIrradianceIndex,
         int minGtsTemp,
-        int maxGtsTemp
-) {
-}
+        int maxGtsTemp) {}
