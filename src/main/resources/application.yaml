@@ -9,3 +9,5 @@ spring:
       enabled: true
   lifecycle:
     timeout-per-shutdown-phase: 30s
+nasa:
+  base-url: https://mars.nasa.gov/rss/api

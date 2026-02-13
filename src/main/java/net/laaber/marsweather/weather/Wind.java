@@ -1,3 +1,3 @@
 package net.laaber.marsweather.weather;
 
-public record Wind(int speed, String direction) {}
+public record Wind(String speed, String direction) {}

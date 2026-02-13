@@ -5,7 +5,7 @@ import java.util.Optional;
 import net.laaber.marsweather.nasa.NasaClient;
 import net.laaber.marsweather.nasa.NasaResponse;
 import net.laaber.marsweather.nasa.SolInfo;
-import net.laaber.marsweather.sol.Sol;
+import net.laaber.marsweather.shared.util.SolCalculator;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +18,7 @@ public class WeatherService {
     }
 
     public WeatherResponse getWeather(LocalDate date) {
-        var sol = Sol.from(date);
+        var sol = SolCalculator.from(date);
 
         var nasaResponse = nasaClient.getMarsWeather();
 
@@ -32,7 +32,7 @@ public class WeatherService {
 
     private Optional<SolInfo> solInfo(NasaResponse nasaResponse, int sol) {
         return nasaResponse.soles().stream()
-                .filter((var solInfo) -> solInfo.sol() == sol)
+                .filter((var solInfo) -> Integer.parseInt(solInfo.sol()) == sol)
                 .findFirst();
     }
 
@@ -41,12 +41,12 @@ public class WeatherService {
                 date,
                 sol,
                 new WeatherInfo(
-                        Optional.of(new Temperature(solInfo.minTemp(), solInfo.maxTemp())),
-                        Optional.of(new Temperature(solInfo.minGtsTemp(), solInfo.maxGtsTemp())),
-                        Optional.of(new Pressure(solInfo.pressure(), solInfo.pressureString())),
-                        Optional.of(solInfo.atmoOpacity()),
-                        Optional.of(solInfo.localUvIrradianceIndex()),
-                        Optional.of(new Wind(solInfo.windSpeed(), solInfo.windDirection())),
+                        new Temperature(solInfo.minTemp(), solInfo.maxTemp()),
+                        new Temperature(solInfo.minGtsTemp(), solInfo.maxGtsTemp()),
+                        new Pressure(solInfo.pressure(), solInfo.pressureString()),
+                        solInfo.atmoOpacity(),
+                        solInfo.localUvIrradianceIndex(),
+                        new Wind(solInfo.windSpeed(), solInfo.windDirection()),
                         solInfo.absHumidity()));
     }
 }
