@@ -1,4 +1,10 @@
 package net.laaber.marsweather.nasa;
 
-public record NasaResponse() {
+import java.util.List;
+import java.util.Map;
+
+public record NasaResponse(
+        Map<String, String> descriptions,
+        List<SolInfo> soles
+) {
 }

@@ -6,16 +6,15 @@ import org.springframework.web.client.RestClient;
 @Component
 public class NasaClient {
 
-    private static final String URL = "https://mars.nasa.gov/rss/api/?feed=weather&feedtype=json&ver=1.0&category=msl";
     private final RestClient restClient;
 
-    public NasaClient(RestClient.Builder builder) {
-        this.restClient = builder.build();
+    public NasaClient(RestClient restClient) {
+        this.restClient =restClient;
     }
 
-    public NasaResponse getWeather() {
+    public NasaResponse getMarsWeather() {
         return restClient.get()
-                .uri(URL)
+                .uri("/?feed=weather&feedtype=json&ver=1.0&category=msl")
                 .retrieve()
                 .body(NasaResponse.class);
     }

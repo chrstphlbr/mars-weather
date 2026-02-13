@@ -18,7 +18,7 @@ public class WeatherService {
     public WeatherResponse getWeather(LocalDate date) {
         var sol = Sol.from(date);
 
-        var nasaWeather = nasaClient.getWeather();
+        var nasaWeather = nasaClient.getMarsWeather();
 
         throw new RuntimeException("Not implemented");
     }
