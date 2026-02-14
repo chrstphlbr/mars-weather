@@ -5,6 +5,8 @@ import java.util.Optional;
 import net.laaber.marsweather.nasa.NasaClient;
 import net.laaber.marsweather.nasa.NasaResponse;
 import net.laaber.marsweather.nasa.SolInfo;
+import net.laaber.marsweather.shared.exception.InvalidDateException;
+import net.laaber.marsweather.shared.exception.NoWeatherForSolException;
 import net.laaber.marsweather.shared.util.SolCalculator;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +20,21 @@ public class WeatherService {
     }
 
     public WeatherResponse getWeather(LocalDate date) {
+        // validate date
+        if (date.isBefore(SolCalculator.CURIOSITY_LANDING)) {
+            throw new InvalidDateException("date is before the Curiosity landing");
+        }
+        if (date.isAfter(LocalDate.now())) {
+            throw new InvalidDateException("date is after today");
+        }
+
         var sol = SolCalculator.from(date);
 
         var nasaResponse = nasaClient.getMarsWeather();
 
         var maybeSolInfo = solInfo(nasaResponse, sol);
         if (maybeSolInfo.isEmpty()) {
-            throw new IllegalArgumentException("no info for sol %d".formatted(sol));
+            throw new NoWeatherForSolException("no weather info for sol %d".formatted(sol));
         }
 
         return weatherResponse(date, sol, maybeSolInfo.get());

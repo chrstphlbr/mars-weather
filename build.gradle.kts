@@ -52,8 +52,8 @@ dependencies {
 
     testImplementation("org.wiremock:wiremock-standalone:3.13.2")
 
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+//    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
+//    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 }
 
 tasks.withType<Test> {
