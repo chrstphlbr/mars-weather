@@ -29,7 +29,7 @@ import org.springframework.test.context.DynamicPropertySource;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NasaClientTest {
 
-    private static int SOLES_COUNT = 4551;
+    private static final int SOLES_COUNT = 4551;
 
     private WireMockServer wireMockServer;
 
