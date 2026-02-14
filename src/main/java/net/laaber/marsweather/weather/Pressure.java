@@ -1,3 +1,3 @@
 package net.laaber.marsweather.weather;
 
-public record Pressure(String value, String description) {}
+public record Pressure(Integer value, String description) {}

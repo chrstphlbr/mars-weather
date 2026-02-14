@@ -7,4 +7,4 @@ public record WeatherInfo(
         String atmosphericOpacity,
         String uvIrradianceIndex,
         Wind wind,
-        String absoluteHumidity) {}
+        Integer absoluteHumidity) {}

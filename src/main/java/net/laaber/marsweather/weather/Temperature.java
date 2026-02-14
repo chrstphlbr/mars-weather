@@ -1,3 +1,3 @@
 package net.laaber.marsweather.weather;
 
-public record Temperature(String min, String max) {}
+public record Temperature(Integer min, Integer max) {}

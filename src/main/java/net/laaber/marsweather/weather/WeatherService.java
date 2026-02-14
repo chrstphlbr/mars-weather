@@ -39,21 +39,41 @@ public class WeatherService {
 
     private Optional<SolInfo> solInfo(NasaResponse nasaResponse, int sol) {
         return nasaResponse.soles().stream()
-                .filter((var solInfo) -> Integer.parseInt(solInfo.sol()) == sol)
+                .filter((var solInfo) -> solInfo.sol() == sol)
                 .findFirst();
     }
 
     private WeatherResponse weatherResponse(LocalDate date, int sol, SolInfo solInfo) {
+        var airTemperature = new Temperature(solInfo.minAirTemperature(), solInfo.maxAirTemperature());
+        if (airTemperature.min() == null && airTemperature.max() == null) {
+            airTemperature = null;
+        }
+
+        var groundTemperature = new Temperature(solInfo.minGroundTemperature(), solInfo.maxGroundTemperature());
+        if (groundTemperature.min() == null && groundTemperature.max() == null) {
+            groundTemperature = null;
+        }
+
+        var atmosphericPressure = new Pressure(solInfo.atmosphericPressure(), solInfo.atmosphericPressureString());
+        if (atmosphericPressure.value() == null && atmosphericPressure.description() == null) {
+            atmosphericPressure = null;
+        }
+
+        var wind = new Wind(solInfo.windSpeed(), solInfo.windDirection());
+        if (wind.speed() == null && wind.direction() == null) {
+            wind = null;
+        }
+
         return new WeatherResponse(
                 date,
                 sol,
                 new WeatherInfo(
-                        new Temperature(solInfo.minAirTemperature(), solInfo.maxAirTemperature()),
-                        new Temperature(solInfo.minGroundTemperature(), solInfo.maxGroundTemperature()),
-                        new Pressure(solInfo.atmosphericPressure(), solInfo.pressureString()),
+                        airTemperature,
+                        groundTemperature,
+                        atmosphericPressure,
                         solInfo.atmosphericOpacity(),
                         solInfo.localUvIrradianceIndex(),
-                        new Wind(solInfo.windSpeed(), solInfo.windDirection()),
+                        wind,
                         solInfo.absoluteHumidity()));
     }
 }

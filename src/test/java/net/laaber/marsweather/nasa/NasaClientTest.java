@@ -95,51 +95,51 @@ public class NasaClientTest {
         checkSol4801(solesMap);
     }
 
-    private void checkSol1(Map<String, SolInfo> soles) {
-        var sol = "1";
+    private void checkSol1(Map<Integer, SolInfo> soles) {
+        var sol = 1;
         var solInfo = soles.get(sol);
         assertThat(solInfo).isNotNull();
-        assertThat(solInfo.id()).isEqualTo("1");
+        assertThat(solInfo.id()).isEqualTo(1);
         assertThat(solInfo.terrestrialDate()).isEqualTo("2012-08-07");
         assertThat(solInfo.sol()).isEqualTo(sol);
-        assertThat(solInfo.solarLongitude()).isEqualTo("150");
+        assertThat(solInfo.solarLongitude()).isEqualTo(150);
         assertThat(solInfo.season()).isEqualTo("Month 6");
-        assertThat(solInfo.minAirTemperature()).isEqualTo("--");
-        assertThat(solInfo.maxAirTemperature()).isEqualTo("--");
-        assertThat(solInfo.atmosphericPressure()).isEqualTo("--");
-        assertThat(solInfo.pressureString()).isEqualTo("Lower");
-        assertThat(solInfo.absoluteHumidity()).isEqualTo("--");
-        assertThat(solInfo.windSpeed()).isEqualTo("--");
-        assertThat(solInfo.windDirection()).isEqualTo("--");
+        assertThat(solInfo.minAirTemperature()).isEqualTo(null);
+        assertThat(solInfo.maxAirTemperature()).isEqualTo(null);
+        assertThat(solInfo.atmosphericPressure()).isEqualTo(null);
+        assertThat(solInfo.atmosphericPressureString()).isEqualTo("Lower");
+        assertThat(solInfo.absoluteHumidity()).isEqualTo(null);
+        assertThat(solInfo.windSpeed()).isEqualTo(null);
+        assertThat(solInfo.windDirection()).isEqualTo(null);
         assertThat(solInfo.atmosphericOpacity()).isEqualTo("Sunny");
         assertThat(solInfo.sunrise()).isEqualTo("05:30");
         assertThat(solInfo.sunset()).isEqualTo("17:22");
-        assertThat(solInfo.localUvIrradianceIndex()).isEqualTo("--");
-        assertThat(solInfo.minGroundTemperature()).isEqualTo("--");
-        assertThat(solInfo.maxGroundTemperature()).isEqualTo("--");
+        assertThat(solInfo.localUvIrradianceIndex()).isEqualTo(null);
+        assertThat(solInfo.minGroundTemperature()).isEqualTo(null);
+        assertThat(solInfo.maxGroundTemperature()).isEqualTo(null);
     }
 
-    private void checkSol4801(Map<String, SolInfo> soles) {
-        var sol = "4801";
+    private void checkSol4801(Map<Integer, SolInfo> soles) {
+        var sol = 4801;
         var solInfo = soles.get(sol);
         assertThat(solInfo).isNotNull();
-        assertThat(solInfo.id()).isEqualTo("4551");
+        assertThat(solInfo.id()).isEqualTo(4551);
         assertThat(solInfo.terrestrialDate()).isEqualTo("2026-02-07");
         assertThat(solInfo.sol()).isEqualTo(sol);
-        assertThat(solInfo.solarLongitude()).isEqualTo("221");
+        assertThat(solInfo.solarLongitude()).isEqualTo(221);
         assertThat(solInfo.season()).isEqualTo("Month 8");
-        assertThat(solInfo.minAirTemperature()).isEqualTo("-67");
-        assertThat(solInfo.maxAirTemperature()).isEqualTo("2");
-        assertThat(solInfo.atmosphericPressure()).isEqualTo("807");
-        assertThat(solInfo.pressureString()).isEqualTo("Higher");
-        assertThat(solInfo.absoluteHumidity()).isEqualTo("--");
-        assertThat(solInfo.windSpeed()).isEqualTo("--");
-        assertThat(solInfo.windDirection()).isEqualTo("--");
+        assertThat(solInfo.minAirTemperature()).isEqualTo(-67);
+        assertThat(solInfo.maxAirTemperature()).isEqualTo(2);
+        assertThat(solInfo.atmosphericPressure()).isEqualTo(807);
+        assertThat(solInfo.atmosphericPressureString()).isEqualTo("Higher");
+        assertThat(solInfo.absoluteHumidity()).isEqualTo(null);
+        assertThat(solInfo.windSpeed()).isEqualTo(null);
+        assertThat(solInfo.windDirection()).isEqualTo(null);
         assertThat(solInfo.atmosphericOpacity()).isEqualTo("Sunny");
         assertThat(solInfo.sunrise()).isEqualTo("05:23");
         assertThat(solInfo.sunset()).isEqualTo("17:34");
         assertThat(solInfo.localUvIrradianceIndex()).isEqualTo("Moderate");
-        assertThat(solInfo.minGroundTemperature()).isEqualTo("-83");
-        assertThat(solInfo.maxGroundTemperature()).isEqualTo("12");
+        assertThat(solInfo.minGroundTemperature()).isEqualTo(-83);
+        assertThat(solInfo.maxGroundTemperature()).isEqualTo(12);
     }
 }
