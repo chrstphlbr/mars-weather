@@ -22,7 +22,8 @@ public class WeatherService {
     public WeatherResponse getWeather(LocalDate date) {
         // validate date
         if (date.isBefore(SolCalculator.CURIOSITY_LANDING)) {
-            throw new InvalidDateException("date is before the Curiosity landing");
+            throw new InvalidDateException(
+                    "date is before the Curiosity landing on %s".formatted(SolCalculator.CURIOSITY_LANDING));
         }
         if (date.isAfter(LocalDate.now())) {
             throw new InvalidDateException("date is after today");
