@@ -41,12 +41,12 @@ public class WeatherService {
                 date,
                 sol,
                 new WeatherInfo(
-                        new Temperature(solInfo.minTemp(), solInfo.maxTemp()),
-                        new Temperature(solInfo.minGtsTemp(), solInfo.maxGtsTemp()),
-                        new Pressure(solInfo.pressure(), solInfo.pressureString()),
-                        solInfo.atmoOpacity(),
+                        new Temperature(solInfo.minAirTemperature(), solInfo.maxAirTemperature()),
+                        new Temperature(solInfo.minGroundTemperature(), solInfo.maxGroundTemperature()),
+                        new Pressure(solInfo.atmosphericPressure(), solInfo.pressureString()),
+                        solInfo.atmosphericOpacity(),
                         solInfo.localUvIrradianceIndex(),
                         new Wind(solInfo.windSpeed(), solInfo.windDirection()),
-                        solInfo.absHumidity()));
+                        solInfo.absoluteHumidity()));
     }
 }

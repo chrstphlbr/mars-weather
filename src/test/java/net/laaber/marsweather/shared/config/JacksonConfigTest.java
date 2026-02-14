@@ -31,61 +31,61 @@
 //    void testIntegerDashDeserializesToEmpty() throws Exception {
 //        String json = """
 //                {
-//                    "pressure": "--"
+//                    "atmosphericPressure": "--"
 //                }
 //                """;
 //
 //        SolInfo solInfo = objectMapper.readValue(json, SolInfo.class);
 //
-//        assertTrue(solInfo.pressure().isEmpty(), "Pressure should be empty for '--'");
+//        assertTrue(solInfo.atmosphericPressure().isEmpty(), "Pressure should be empty for '--'");
 //    }
 //
 //    @Test
 //    void testIntegerNullDeserializesToEmpty() throws Exception {
 //        String json = """
 //                {
-//                    "pressure": null
+//                    "atmosphericPressure": null
 //                }
 //                """;
 //
 //        SolInfo solInfo = objectMapper.readValue(json, SolInfo.class);
 //
-//        assertTrue(solInfo.pressure().isEmpty(), "Pressure should be empty for null");
+//        assertTrue(solInfo.atmosphericPressure().isEmpty(), "Pressure should be empty for null");
 //    }
 //
 //    @Test
 //    void testIntegerValidNumberDeserializesSuccessfully() throws Exception {
 //        String json = """
 //                {
-//                    "pressure": 750
+//                    "atmosphericPressure": 750
 //                }
 //                """;
 //
 //        SolInfo solInfo = objectMapper.readValue(json, SolInfo.class);
 //
-//        assertTrue(solInfo.pressure().isPresent(), "Pressure should be present");
-//        assertEquals(750, solInfo.pressure().get(), "Pressure should be 750");
+//        assertTrue(solInfo.atmosphericPressure().isPresent(), "Pressure should be present");
+//        assertEquals(750, solInfo.atmosphericPressure().get(), "Pressure should be 750");
 //    }
 //
 //    @Test
 //    void testIntegerStringNumberConvertsSuccessfully() throws Exception {
 //        String json = """
 //                {
-//                    "pressure": "750"
+//                    "atmosphericPressure": "750"
 //                }
 //                """;
 //
 //        SolInfo solInfo = objectMapper.readValue(json, SolInfo.class);
 //
-//        assertTrue(solInfo.pressure().isPresent(), "Pressure should be present");
-//        assertEquals(750, solInfo.pressure().get(), "Pressure should be 750 from string");
+//        assertTrue(solInfo.atmosphericPressure().isPresent(), "Pressure should be present");
+//        assertEquals(750, solInfo.atmosphericPressure().get(), "Pressure should be 750 from string");
 //    }
 //
 //    @Test
 //    void testIntegerInvalidStringThrowsException() {
 //        String json = """
 //                {
-//                    "pressure": "invalid"
+//                    "atmosphericPressure": "invalid"
 //                }
 //                """;
 //
@@ -206,7 +206,7 @@
 //    void testMultipleFieldsWithMixedValues() throws Exception {
 //        String json = """
 //                {
-//                    "pressure": 750,
+//                    "atmosphericPressure": 750,
 //                    "windDirection": "--",
 //                    "terrestrialDate": "2024-02-13"
 //                }
@@ -214,8 +214,8 @@
 //
 //        SolInfo solInfo = objectMapper.readValue(json, SolInfo.class);
 //
-//        assertTrue(solInfo.pressure().isPresent(), "Pressure should be present");
-//        assertEquals(750, solInfo.pressure().get(), "Pressure should be 750");
+//        assertTrue(solInfo.atmosphericPressure().isPresent(), "Pressure should be present");
+//        assertEquals(750, solInfo.atmosphericPressure().get(), "Pressure should be 750");
 //
 //        assertTrue(solInfo.windDirection().isEmpty(), "WindDirection should be empty for '--'");
 //
