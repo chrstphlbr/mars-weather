@@ -11,9 +11,11 @@ import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -78,7 +80,7 @@ public class NasaClientTest {
                 .withQueryParam("category", equalTo("msl")));
     }
 
-    private void checkResponse(NasaResponse response) {
+    private static void checkResponse(NasaResponse response) {
         assertThat(response.descriptions()).isNotNull();
 
         // check soles
@@ -91,55 +93,77 @@ public class NasaClientTest {
         assertThat(solesMap.size()).describedAs("solesMap.size() incorrect").isEqualTo(SOLES_COUNT);
 
         // check individual soles
-        checkSol1(solesMap);
-        checkSol4801(solesMap);
+        testData().forEach((var td) -> checkSol(solesMap, td.sol, td.expectedResult));
     }
 
-    private void checkSol1(Map<Integer, SolInfo> soles) {
-        var sol = 1;
+    private static void checkSol(Map<Integer, SolInfo> soles, int sol, SolInfo expectedResult) {
         var solInfo = soles.get(sol);
         assertThat(solInfo).isNotNull();
-        assertThat(solInfo.id()).isEqualTo(1);
-        assertThat(solInfo.terrestrialDate()).isEqualTo("2012-08-07");
+        assertThat(solInfo.id()).isEqualTo(expectedResult.id());
+        assertThat(solInfo.terrestrialDate()).isEqualTo(expectedResult.terrestrialDate());
         assertThat(solInfo.sol()).isEqualTo(sol);
-        assertThat(solInfo.solarLongitude()).isEqualTo(150);
-        assertThat(solInfo.season()).isEqualTo("Month 6");
-        assertThat(solInfo.minAirTemperature()).isEqualTo(null);
-        assertThat(solInfo.maxAirTemperature()).isEqualTo(null);
-        assertThat(solInfo.atmosphericPressure()).isEqualTo(null);
-        assertThat(solInfo.atmosphericPressureString()).isEqualTo("Lower");
-        assertThat(solInfo.absoluteHumidity()).isEqualTo(null);
-        assertThat(solInfo.windSpeed()).isEqualTo(null);
-        assertThat(solInfo.windDirection()).isEqualTo(null);
-        assertThat(solInfo.atmosphericOpacity()).isEqualTo("Sunny");
-        assertThat(solInfo.sunrise()).isEqualTo("05:30");
-        assertThat(solInfo.sunset()).isEqualTo("17:22");
-        assertThat(solInfo.localUvIrradianceIndex()).isEqualTo(null);
-        assertThat(solInfo.minGroundTemperature()).isEqualTo(null);
-        assertThat(solInfo.maxGroundTemperature()).isEqualTo(null);
+        assertThat(solInfo.solarLongitude()).isEqualTo(expectedResult.solarLongitude());
+        assertThat(solInfo.season()).isEqualTo(expectedResult.season());
+        assertThat(solInfo.minAirTemperature()).isEqualTo(expectedResult.minAirTemperature());
+        assertThat(solInfo.maxAirTemperature()).isEqualTo(expectedResult.maxAirTemperature());
+        assertThat(solInfo.atmosphericPressure()).isEqualTo(expectedResult.atmosphericPressure());
+        assertThat(solInfo.atmosphericPressureString()).isEqualTo(expectedResult.atmosphericPressureString());
+        assertThat(solInfo.absoluteHumidity()).isEqualTo(expectedResult.absoluteHumidity());
+        assertThat(solInfo.windSpeed()).isEqualTo(expectedResult.windSpeed());
+        assertThat(solInfo.windDirection()).isEqualTo(expectedResult.windDirection());
+        assertThat(solInfo.atmosphericOpacity()).isEqualTo(expectedResult.atmosphericOpacity());
+        assertThat(solInfo.sunrise()).isEqualTo(expectedResult.sunrise());
+        assertThat(solInfo.sunset()).isEqualTo(expectedResult.sunset());
+        assertThat(solInfo.localUvIrradianceIndex()).isEqualTo(expectedResult.localUvIrradianceIndex());
+        assertThat(solInfo.minGroundTemperature()).isEqualTo(expectedResult.minGroundTemperature());
+        assertThat(solInfo.maxGroundTemperature()).isEqualTo(expectedResult.maxGroundTemperature());
     }
 
-    private void checkSol4801(Map<Integer, SolInfo> soles) {
-        var sol = 4801;
-        var solInfo = soles.get(sol);
-        assertThat(solInfo).isNotNull();
-        assertThat(solInfo.id()).isEqualTo(4551);
-        assertThat(solInfo.terrestrialDate()).isEqualTo("2026-02-07");
-        assertThat(solInfo.sol()).isEqualTo(sol);
-        assertThat(solInfo.solarLongitude()).isEqualTo(221);
-        assertThat(solInfo.season()).isEqualTo("Month 8");
-        assertThat(solInfo.minAirTemperature()).isEqualTo(-67);
-        assertThat(solInfo.maxAirTemperature()).isEqualTo(2);
-        assertThat(solInfo.atmosphericPressure()).isEqualTo(807);
-        assertThat(solInfo.atmosphericPressureString()).isEqualTo("Higher");
-        assertThat(solInfo.absoluteHumidity()).isEqualTo(null);
-        assertThat(solInfo.windSpeed()).isEqualTo(null);
-        assertThat(solInfo.windDirection()).isEqualTo(null);
-        assertThat(solInfo.atmosphericOpacity()).isEqualTo("Sunny");
-        assertThat(solInfo.sunrise()).isEqualTo("05:23");
-        assertThat(solInfo.sunset()).isEqualTo("17:34");
-        assertThat(solInfo.localUvIrradianceIndex()).isEqualTo("Moderate");
-        assertThat(solInfo.minGroundTemperature()).isEqualTo(-83);
-        assertThat(solInfo.maxGroundTemperature()).isEqualTo(12);
+    private static Stream<TestData> testData() {
+        return Stream.of(
+                new TestData(
+                        1,
+                        new SolInfo(
+                                1,
+                                LocalDate.of(2012, 8, 7),
+                                1,
+                                150,
+                                "Month 6",
+                                null,
+                                null,
+                                null,
+                                "Lower",
+                                null,
+                                null,
+                                null,
+                                "Sunny",
+                                "05:30",
+                                "17:22",
+                                null,
+                                null,
+                                null)),
+                new TestData(
+                        4801,
+                        new SolInfo(
+                                4551,
+                                LocalDate.of(2026, 2, 7),
+                                4801,
+                                221,
+                                "Month 8",
+                                -67,
+                                2,
+                                807,
+                                "Higher",
+                                null,
+                                null,
+                                null,
+                                "Sunny",
+                                "05:23",
+                                "17:34",
+                                "Moderate",
+                                -83,
+                                12)));
     }
+
+    private record TestData(int sol, SolInfo expectedResult) {}
 }
