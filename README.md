@@ -81,24 +81,21 @@ curl "http://localhost:8080/weather?date=2026-02-10"
   "sol": 4804,
   "weather": {
     "airTemperature": {
-      "min": "-66",
-      "max": "2"
+      "min": -66,
+      "max": 2
     },
     "groundTemperature": {
-      "min": "-80",
-      "max": "11"
+      "min": -80,
+      "max": 11
     },
     "atmosphericPressure": {
-      "value": "810",
+      "value": 810,
       "description": "Higher"
     },
     "atmosphericOpacity": "Sunny",
     "uvIrradianceIndex": "Moderate",
-    "wind": {
-      "speed": "--",
-      "direction":"--"
-    },
-    "absoluteHumidity":"--"
+    "wind": null,
+    "absoluteHumidity": null
   }
 }
 ```
